@@ -2,9 +2,12 @@ import { QueryClient } from "@tanstack/query-core";
 
 export const queryClient = new QueryClient();
 
-export async function fetchEvents({ signal, search }) {
+export async function fetchEvents({ signal, search, max }) {
   let endpoint = "http://localhost:3000/events";
-  if (search) endpoint += "?search=" + search;
+
+  if (search && max) endpoint += "?search=" + search + "&max=" + max;
+  else if (search) endpoint += "?search=" + search;
+  else if (max) endpoint += "?max=" + max;
 
   const response = await fetch(endpoint, { signal: signal });
 

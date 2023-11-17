@@ -15,7 +15,7 @@ export default function EventDetails() {
   const [isDeleting, setIsDeleting] = useState(false);
   const { data, isPending, isError, error } = useQuery({
     queryKey: ["events", { id: idEvent }],
-    queryFn: ({ signal }) => fetchEvent({ id: idEvent, signal }),
+    queryFn: ({ signal, queryKey }) => fetchEvent({ signal, ...queryKey[1] }),
   });
 
   const setIsDeletingHandler = (isDeleting) => setIsDeleting(isDeleting);
